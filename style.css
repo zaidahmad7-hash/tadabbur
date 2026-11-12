@@ -54,7 +54,6 @@ p{margin:0}
 /* ---------- brand ---------- */
 .brand{display:flex;align-items:center;justify-content:space-between}
 .brand .name{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-size:1.35rem;color:var(--gold);letter-spacing:.06em}
-.brand .name svg{width:26px;height:26px}
 .brand .ar{font-size:1.55rem;color:var(--gold);opacity:.8}
 .greet{display:flex;flex-direction:column;gap:4px}
 .greet .date{font-size:.86rem;color:var(--muted)}
@@ -62,7 +61,6 @@ p{margin:0}
 /* ---------- hero passage card ---------- */
 .hero{position:relative;overflow:hidden;border-radius:24px;padding:24px 22px 22px;border:1px solid var(--gold-b);
   background:radial-gradient(120% 90% at 100% 0%,var(--gold-a),transparent 60%),linear-gradient(180deg,var(--surface),var(--bg2))}
-.hero .star{position:absolute;right:-30px;top:-30px;width:170px;height:170px;opacity:.09;color:var(--gold)}
 .hero .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:99px;font-size:.72rem;font-weight:600;letter-spacing:.04em;background:var(--gold-a);color:var(--gold);border:1px solid var(--gold-b)}
 .pill.plain{background:transparent;color:var(--muted);border-color:var(--line2)}
@@ -196,7 +194,7 @@ body.in-session .tabs{display:none}
 .intro-name .ar{font-size:calc(3.2rem * var(--ar-scale));line-height:1.5;color:var(--gold)}
 .ornament{display:flex;align-items:center;gap:12px;color:var(--gold);opacity:.7}
 .ornament::before,.ornament::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold-b),transparent)}
-.ornament svg{width:16px;height:16px}
+.ornament i{width:6px;height:6px;border-radius:50%;background:var(--gold)}
 .intent{text-align:center;font-family:var(--f-display);font-style:italic;font-size:1.15rem;color:var(--soft);line-height:1.5}
 .clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}
 
@@ -263,9 +261,8 @@ textarea.journal:focus{border-color:var(--gold-b)}
 /* celebrate */
 .celebrate{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:30px;animation:fadein .4s ease both}
 .celebrate .in{max-width:420px;width:100%;display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px}
-.burst{width:120px;height:120px;color:var(--gold);animation:spin 18s linear infinite}
-.burst .core{animation:pop .9s var(--ease) both}
-@keyframes spin{to{transform:rotate(360deg)}}
+.seal{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;color:var(--gold);border:1.5px solid var(--gold-b);background:var(--gold-a);animation:pop .7s var(--ease) both}
+.seal svg{width:40px;height:40px}
 @keyframes pop{from{transform:scale(.4);opacity:0}}
 .celebrate .stats{width:100%}
 
@@ -277,7 +274,6 @@ textarea.journal:focus{border-color:var(--gold-b)}
 .entry .et{font-family:var(--f-read);font-size:1rem;line-height:1.65;white-space:pre-wrap;color:var(--soft)}
 .month{font-family:var(--f-display);font-size:1.15rem;color:var(--muted);margin-top:6px}
 .empty{text-align:center;padding:40px 10px;display:flex;flex-direction:column;gap:10px;align-items:center;color:var(--muted)}
-.empty svg{width:48px;height:48px;color:var(--gold);opacity:.6}
 
 /* settings */
 .set{display:flex;flex-direction:column;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}

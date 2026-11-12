@@ -62,7 +62,6 @@ const ref = r => `${sur(r.s).name} · ${r.from === r.to ? 'Ayah ' + r.from : 'Ay
 const shuffle = a => { a = [...a]; for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const nameOf = (list, id) => (list.find(x => x[0] === id) || list[0])[1];
 
-const STAR = `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><rect x="21" y="21" width="58" height="58" rx="2"/><rect x="21" y="21" width="58" height="58" rx="2" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="13"/></svg>`;
 const I = {
   close: '<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   back: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>',
@@ -220,7 +219,6 @@ function renderToday() {
   if (nx) {
     const r = RUKUS[nx - 1], s = sur(r.s), did = todayCount() > 0;
     hero = `<section class="hero fade">
-      <div class="star">${STAR}</div>
       <div class="top"><span class="pill">${esc(TRACKS[t].name)}</span><span class="pill plain">${did ? 'Bonus passage' : "Today's passage"}</span></div>
       <div class="sname"><div class="ar">${esc(s.ar)}</div><h2>${esc(s.name)} <span class="muted" style="font-size:1rem">· ${esc(s.en)}</span></h2></div>
       <div class="meta">${r.from === r.to ? 'Ayah ' + r.from : 'Ayahs ' + r.from + '–' + r.to} · Passage ${r.k} of ${r.K} · ${s.place === 'M' ? 'Makki' : 'Madani'}</div>
@@ -230,7 +228,7 @@ function renderToday() {
       </div></section>`;
   } else {
     const other = t === 'prayer' ? 'journey' : 'prayer';
-    hero = `<section class="hero fade"><div class="star">${STAR}</div>
+    hero = `<section class="hero fade">
       <div class="top"><span class="pill">${esc(TRACKS[t].name)}</span></div>
       <div class="sname"><h2>Path complete. Alhamdulillah.</h2></div>
       <div class="meta">You have studied every passage in ${esc(TRACKS[t].name)}.</div>
@@ -251,7 +249,7 @@ function renderToday() {
   const isFriday = now.getDay() === 5;
 
   app.innerHTML = `<main class="page stack">
-    <header class="brand fade"><div class="name">${STAR}<span>Tadabbur</span></div><div class="ar">تدبّر</div></header>
+    <header class="brand fade"><div class="name"><span>Tadabbur</span></div><div class="ar">تدبّر</div></header>
     <div class="greet fade"><span class="eyebrow">${esc(part)}</span><h1>Assalamu alaikum</h1><span class="date">${esc(greg)}${hijri ? ' · ' + esc(hijri) : ''}</span></div>
     ${hero}
     ${isFriday ? `<button class="card fade" id="kahf" style="text-align:left;display:flex;gap:14px;align-items:center"><span class="ar gold" style="font-size:1.8rem">الكهف</span><span style="flex:1"><b>It's Jumu'ah</b><br><span class="muted" style="font-size:.86rem">A good day to read Surah Al-Kahf. Open its passages.</span></span></button>` : ''}
@@ -284,7 +282,6 @@ function renderToday() {
 
 function welcome() {
   openSheet(`<div class="stack" style="gap:18px;padding-bottom:6px">
-    <div style="color:var(--gold);width:54px;height:54px">${STAR}</div>
     <h2>Welcome to Tadabbur</h2>
     <p class="prose" style="margin:0">Tadabbur means reflecting deeply on the Quran. Each day you study one short passage in five calm steps:</p>
     <div class="plist">
@@ -385,7 +382,7 @@ function renderSession(keepScroll) {
   [stepIntro, stepListen, stepWords, stepMeaning, stepReflect][step](body);
   if (!keepScroll) window.scrollTo(0, 0);
 }
-function errBox() { return `<div class="err">${STAR.replace('<svg', '<svg style="width:46px;height:46px;color:var(--gold);opacity:.6"')}<p>Couldn't load this passage. Check your connection and try again.</p><button class="btn ghost" id="retry">Try again</button></div>`; }
+function errBox() { return `<div class="err"><p>Couldn't load this passage. Check your connection and try again.</p><button class="btn ghost" id="retry">Try again</button></div>`; }
 function setStep(k) {
   if (k < 0 || k > 4) return;
   if (sess.step === 4) saveDraft();
@@ -401,7 +398,7 @@ function stepIntro(body) {
     <div class="intro-name"><span class="eyebrow">Surah ${s.n} · ${s.place === 'M' ? 'Revealed in Makkah' : 'Revealed in Madinah'}</span>
       <div class="ar">${esc(s.ar)}</div><h2>${esc(s.name)}</h2><span class="muted">${esc(s.en)}</span></div>
     <div class="facts" style="justify-content:center"><span class="pill">${r.from === r.to ? 'Ayah ' + r.from : 'Ayahs ' + r.from + '–' + r.to}</span><span class="pill plain">Passage ${r.k} of ${r.K}</span><span class="pill plain">${s.ayahs} ayahs in the surah</span></div>
-    <div class="ornament">${STAR}</div>
+    <div class="ornament"><i></i></div>
     ${continuing ? `<div class="recap"><span class="eyebrow">Continuing the surah</span><p class="muted" style="font-size:.92rem">You have studied ${prevDone.length} of the ${r.k - 1} passage${r.k - 1 > 1 ? 's' : ''} before this one.</p>
       ${lastRefl ? `<div class="quote" style="margin-top:6px"><span class="q">Your reflection on ${esc(ref(RUKUS[lastRefl.i - 1]))}</span><span class="a">${esc(lastRefl.t.length > 200 ? lastRefl.t.slice(0, 200) + '…' : lastRefl.t)}</span></div>` : ''}</div>` : ''}
     <div class="stack" style="gap:10px"><span class="eyebrow">About this surah</span><div id="about"><div class="skel" style="height:110px"></div></div></div>
@@ -561,7 +558,7 @@ function stepReflect(body) {
   const existing = S.refl.find(x => x.i === i);
   const draft = S.drafts[i] ?? existing?.t ?? '';
   body.innerHTML = `<div class="stack">
-    <div class="ornament">${STAR}</div>
+    <div class="ornament"><i></i></div>
     <span class="eyebrow" style="text-align:center">Reflect</span>
     <p class="prompt">${esc(prompt)}</p>
     <textarea class="journal" id="jt" placeholder="Write freely. Even one line helps it stay with you.">${esc(draft)}</textarea>
@@ -589,7 +586,7 @@ function complete() {
   const s = sur(r.s), sd = surahDone(r.s), K = BY_SURAH[r.s].length, nx = nextIn(S.track);
   const surahComplete = sd === K;
   layer.innerHTML = `<div class="celebrate"><div class="in">
-    <svg class="burst" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.6"><g class="core"><rect x="21" y="21" width="58" height="58" rx="2"/><rect x="21" y="21" width="58" height="58" rx="2" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="13" fill="currentColor" opacity=".25"/></g></svg>
+    <div class="seal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
     <span class="eyebrow gold">${surahComplete ? 'Surah complete' : 'Passage complete'}</span>
     <h1>${surahComplete ? `You have studied all of ${esc(s.name)}` : 'Alhamdulillah'}</h1>
     <p class="muted">${esc(ref(r))}${text ? ' · reflection saved' : ''}</p>
@@ -614,7 +611,7 @@ function renderJournal() {
       const head = m !== lastMonth ? `<div class="month">${esc(m)}</div>` : ''; lastMonth = m;
       return `${head}<article class="entry fade"><div class="eh"><span class="ref">${esc(ref(RUKUS[x.i - 1]))}</span><span>${d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })}</span></div>
         <span class="eq">${esc(x.q)}</span><p class="et">${esc(x.t)}</p><div><button class="link" data-open="${x.i}">Open passage</button></div></article>`;
-    }).join('') : `<div class="empty fade">${STAR}<p>Your first reflection will appear here after today's passage.</p></div>`}
+    }).join('') : `<div class="empty fade"><p>Your first reflection will appear here after today's passage.</p></div>`}
     <section class="card stack fade" style="gap:12px"><span class="eyebrow">Keep your journal safe</span>
       <p class="muted" style="font-size:.9rem">Your progress and reflections live on this phone only. Save a backup now and then.</p>
       <div class="row"><button class="btn ghost" style="flex:1" id="bk">Save backup</button><button class="btn ghost" style="flex:1" id="rs">Restore</button></div>
